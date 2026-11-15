@@ -21,6 +21,9 @@ public class GreedyScheduler {
     }
 
     public void createSchedule(int availableTime) {
+        if (availableTime <= 0){
+            throw new IllegalArgumentException("Available practice time must be greater than zero.");
+        }
 
         int remainingTime = availableTime;
         int totalValue = 0;
