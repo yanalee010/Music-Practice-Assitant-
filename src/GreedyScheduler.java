@@ -10,16 +10,6 @@ public class GreedyScheduler {
         queue.add(task);
     }
 
-    public void displayTasks() {
-        while (!queue.isEmpty()) {
-
-            PracticeTask task = queue.poll();
-            System.out.println(
-                task.name + " - Priority: " + task.getPriority()
-            );
-        }
-    }
-
     public void createSchedule(int availableTime) {
 
         if (availableTime <= 0){
@@ -30,9 +20,11 @@ public class GreedyScheduler {
         int totalValue = 0;
         int selectedTasks = 0;
 
+        PriorityQueue<PracticeTask> tempQueue = new PriorityQueue<>(queue);
+
         System.out.println("Practice Schedule:");
-        while (!queue.isEmpty()) {
-            PracticeTask task = queue.poll();
+        while (!tempQueue.isEmpty()) {
+            PracticeTask task = tempQueue.poll();
             if (task.duration <= remainingTime) {
                 System.out.println(task.name + " - " + task.duration + " minutes");
             remainingTime -=task.duration;
