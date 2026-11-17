@@ -82,4 +82,25 @@ public class DynamicProgrammingScheduler {
         }
         return selectedTasks;
     }
+    public void createSchedule(int availableTime) {
+        ArrayList<PracticeTask> selectedTasks = getSelectedTasks(availableTime);
+
+        int totalValue = 0;
+        int totalTimeUsed = 0;
+
+        System.out.println("Dynamic Programming Practice Schedule: ");
+
+        for (PracticeTask task : selectedTasks) {
+
+            System.out.println(task.name + " - " + task.duration + " minutes");
+
+            totalValue += task.value;
+            totalTimeUsed += task.duration;
+        }
+
+        System.out.println("Total tasks selected: " + selectedTasks.size());
+        System.out.println("Total time used: " + totalTimeUsed + " minutes");
+        System.out.println("Total value: " + totalValue);
+        System.out.println("Remaining time: " + (availableTime - totalTimeUsed) + " minutes");
+    }
 }
