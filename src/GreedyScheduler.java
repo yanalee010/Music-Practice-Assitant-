@@ -1,13 +1,11 @@
-import java.util.PriorityQueue;
-import java.util.Comparator;
-
 public class GreedyScheduler {
-    PriorityQueue<PracticeTask> queue = new PriorityQueue<>(
-        Comparator.comparingDouble(PracticeTask::getPriority).reversed()
-    );
+    private PracticeTaskHeap queue;
+    public GreedyScheduler() {
+        queue = new PracticeTaskHeap();
+    }
 
     public void addTask(PracticeTask task) {
-        queue.add(task);
+        queue.insert(task);
     }
 
     public void createSchedule(int availableTime) {
@@ -20,14 +18,14 @@ public class GreedyScheduler {
         int totalValue = 0;
         int selectedTasks = 0;
 
-        PriorityQueue<PracticeTask> tempQueue = new PriorityQueue<>(queue);
+        PracticeTaskHeap tempQueue = queue.copy();
 
         System.out.println("Practice Schedule:");
         while (!tempQueue.isEmpty()) {
-            PracticeTask task = tempQueue.poll();
+            PracticeTask task = tempQueue.extractMax();
             if (task.duration <= remainingTime) {
                 System.out.println(task.name + " - " + task.duration + " minutes");
-            remainingTime -=task.duration;
+            remainingTime -= task.duration;
             totalValue += task.value;
             selectedTasks++;
         }
