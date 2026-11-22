@@ -60,7 +60,35 @@ public class PracticeTaskHeap {
 
         if(!heap.isEmpty()) {
             heap.set(0, lastTask);
+            heapifyDown(0);
         }
         return maxTask;
+    }
+
+    private void heapifyDown(int index) {
+        int size = heap.size();
+
+        while (true) {
+            int leftChild = 2 * index + 1;
+            int rightChild = 2 * index + 2;
+            int largest = index;
+
+            if (leftChild < size && heap.get(leftChild).getPriority() > heap.get(largest).getPriority()) {
+                largest = leftChild;
+            }
+
+            if (rightChild < size && heap.get(rightChild).getPriority() > heap.get(largest).getPriority()) {
+                largest = rightChild;
+            }
+
+            if(largest == index) {
+                break;
+            }
+            PracticeTask temp = heap.get(index);
+            heap.set(index, heap.get(largest));
+            heap.set(largest, temp);
+
+            index = largest;
+        }
     }
 }
